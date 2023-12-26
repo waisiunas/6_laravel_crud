@@ -52,7 +52,9 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        return view("course.edit", [
+            'course' => $course
+        ]);
     }
 
     /**
@@ -60,7 +62,21 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+            'duration' => ['required'],
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'duration' => $request->duration,
+        ];
+
+        if ($course->update($data)) {
+            return back()->with(['success' => 'Magic has been spelled!']);
+        } else {
+            return back()->with(['failure' => 'Magic has failed to spell!']);
+        }
     }
 
     /**
@@ -68,6 +84,10 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        if ($course->delete()) {
+            return back()->with(['success' => 'Magic has been spelled!']);
+        } else {
+            return back()->with(['failure' => 'Magic has failed to spell!']);
+        }
     }
 }

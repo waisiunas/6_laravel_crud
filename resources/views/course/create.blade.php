@@ -55,7 +55,8 @@
                             <div class="mb-3">
                                 <label for="duration" class="form-label">Duration</label>
                                 <input type="text" class="form-control @error('duration') is-invalid @enderror"
-                                    id="duration" name="duration" placeholder="Enter course duration!">
+                                    id="duration" name="duration" value="{{ old('duration') }}"
+                                    placeholder="Enter course duration!">
                                 @error('duration')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
